@@ -1,3 +1,11 @@
+class hashNode{
+  constructor(key, value){
+    this.key = key;
+    this.value = value;
+    this.next = null;
+  }
+}
+
 class HashMap {
   constructor(initialCapacity = 8) {
     this.length = 0;
@@ -27,14 +35,12 @@ class HashMap {
       this._resize(this._capacity * HashMap.SIZE_RATIO);
     }
     const index = this._findSlot(key)
+    let newNode = new hashNode(key, value)
     if(!this._hashTable[index]) {
+      this._hashTable[index] = newNode
       this.length++
     }
-    this._hashTable[index] = {
-      key,
-      value,
-      DELETED: false
-    }
+    newNode.next = this._hashTable[index]
   }
   delete(key) {
     const index = this._findSlot(key)
